@@ -1,0 +1,9 @@
+/**
+ * Bella Vista Ristorante - Main CSS
+ * Grundläggande stilar för commit 10
+ */
+
+/* CSS Modules - importeras i rätt ordning */
+@import url('variables.css');
+@import url('base.css');
+@import url('utilities.css');
