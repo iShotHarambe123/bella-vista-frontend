@@ -1,0 +1,29 @@
+{
+    "name": "bella-vista-frontend",
+    "version": "1.0.0",
+    "description": "Frontend för Bella Vista Ristorante",
+    "main": "index.js",
+    "scripts": {
+        "build": "webpack --mode production",
+        "dev": "webpack serve --mode development",
+        "watch": "webpack --mode development --watch"
+    },
+    "devDependencies": {
+        "webpack": "^5.88.0",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^4.15.1",
+        "css-loader": "^6.8.1",
+        "style-loader": "^3.3.3",
+        "html-webpack-plugin": "^5.5.3",
+        "copy-webpack-plugin": "^11.0.0",
+        "mini-css-extract-plugin": "^2.7.6"
+    },
+    "keywords": [
+        "restaurant",
+        "frontend",
+        "webpack",
+        "css"
+    ],
+    "author": "Bella Vista Team",
+    "license": "MIT"
+}
