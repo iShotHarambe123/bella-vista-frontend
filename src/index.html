@@ -4,15 +4,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bella Vista Ristorante</title>
-    <meta name="description" content="Autentisk italiensk restaurang i Stockholm">
+    <title>Bella Vista Ristorante - Autentisk italiensk mat i Stockholm</title>
+    <meta name="description"
+        content="Bella Vista Ristorante erbjuder autentisk italiensk mat i hjärtat av Stockholm. Boka bord online och upptäck våra traditionella rätter.">
+    <meta name="keywords" content="italiensk restaurang, Stockholm, pasta, pizza, boka bord, autentisk italiensk mat">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bella Vista Ristorante - Autentisk italiensk mat">
+    <meta property="og:description"
+        content="Upptäck autentisk italiensk mat i hjärtat av Stockholm. Boka ditt bord idag!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Dancing+Script:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+
 </head>
 
 <body>
-    <div class="container">
-        <h1>Bella Vista Ristorante</h1>
-        <p>Välkommen till vår italienska restaurang!</p>
+    <!-- Laddningsindikator -->
+    <div id="loading" class="loading">
+        <div class="loading-spinner"></div>
+        <p>Laddar Bella Vista...</p>
     </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <h1 class="nav__logo">Bella Vista</h1>
+                <p class="nav__tagline">Ristorante</p>
+            </div>
+
+            <div class="nav__menu" id="navMenu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#home" class="nav__link active">Hem</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#about" class="nav__link">Om oss</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#menu" class="nav__link">Meny</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#reservation" class="nav__link">Boka bord</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#contact" class="nav__link">Kontakt</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav__toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero__container container">
+                <div class="hero__content">
+                    <div class="hero__badge">
+                        <span class="hero__badge-text">Sedan 1985</span>
+                    </div>
+                    <h1 class="hero__title">
+                        <span class="hero__title-main">Bella Vista</span>
+                        <span class="hero__title-sub">Ristorante</span>
+                    </h1>
+                    <p class="hero__tagline">
+                        <em>Där passion möter tradition</em>
+                    </p>
+                    <p class="hero__description">
+                        Välkommen till vår värld av autentisk italiensk mat med en modern twist.
+                        Här skapar vi minnesvärda upplevelser genom kreativa rätter,
+                        varm atmosfär och genuint italiensk gästfrihet.
+                    </p>
+                    <div class="hero__buttons">
+                        <a href="#menu" class="btn btn--primary">Utforska menyn</a>
+                        <a href="#reservation" class="btn btn--secondary">Boka bord</a>
+                    </div>
+                </div>
+                <div class="hero__visual">
+                    <div class="hero__image">
+                        <img src="images/image1.png" alt="Färsk pasta med tomatsås" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Om oss Section -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Vår historia</h2>
+                    <p class="section__subtitle">Passion för autentisk italiensk mat sedan 1985</p>
+                </div>
+
+                <div class="about__content">
+                    <div class="about__text">
+                        <p>
+                            Bella Vista Ristorante grundades 1985 av familjen Rossi med en enkel vision:
+                            att dela den autentiska smaken av Italien med Stockholm. Vårt kök leds av
+                            köksmästare Marco Rossi, som har över 30 års erfarenhet från de bästa
+                            restaurangerna i Rom och Milano.
+                        </p>
+                        <p>
+                            Vi använder endast de finaste ingredienserna, många importerade direkt från
+                            Italien. Vår pasta görs färsk varje dag, våra såser kokas långsamt enligt
+                            traditionella recept, och våra pizzor bakas i vår stenugn som värms upp
+                            till över 400 grader.
+                        </p>
+                        <div class="about__features">
+                            <div class="feature">
+                                <div class="feature__icon">•</div>
+                                <h3>Färsk pasta</h3>
+                                <p>Gjord dagligen enligt traditionella recept</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature__icon">•</div>
+                                <h3>Italienska ingredienser</h3>
+                                <p>Importerade direkt från Italien</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature__icon">•</div>
+                                <h3>Erfaren köksmästare</h3>
+                                <p>30+ års erfarenhet från Italien</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about__image">
+                        <img src="images/image2.png" alt="Köksmästare Marco Rossi" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meny Section -->
+        <section class="menu" id="menu">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Vår meny</h2>
+                    <p class="section__subtitle">Traditionella italienska rätter med moderna influenser</p>
+                </div>
+
+                <!-- Meny-kategorier -->
+                <div class="menu__categories" id="menuCategories">
+                    <!-- Fylls dynamiskt med JavaScript -->
+                </div>
+
+                <!-- Meny-innehåll -->
+                <div class="menu__content" id="menuContent">
+                    <div class="menu__loading">
+                        <div class="loading-spinner"></div>
+                        <p>Laddar meny...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reservation Section -->
+        <section class="reservation" id="reservation">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Boka bord</h2>
+                    <p class="section__subtitle">Reservera ditt bord för en oförglömlig middag</p>
+                </div>
+
+                <div class="reservation__content">
+                    <div class="reservation__info">
+                        <h3>Öppettider</h3>
+                        <div class="opening-hours">
+                            <div class="opening-hours__day">
+                                <span>Måndag - Torsdag</span>
+                                <span>17:00 - 23:00</span>
+                            </div>
+                            <div class="opening-hours__day">
+                                <span>Fredag - Lördag</span>
+                                <span>17:00 - 24:00</span>
+                            </div>
+                            <div class="opening-hours__day">
+                                <span>Söndag</span>
+                                <span>16:00 - 22:00</span>
+                            </div>
+                        </div>
+
+                        <div class="reservation__notes">
+                            <h4>Viktigt att veta</h4>
+                            <ul>
+                                <li>Bokningar för samma dag, ring oss på 08-123 456 78</li>
+                                <li>Större sällskap (8+ personer) kräver förhandsbeställning</li>
+                                <li>Vi håller bordet reserverat i 15 minuter efter bokad tid</li>
+                                <li>Avbokning senast 2 timmar före bokad tid</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <form class="reservation__form" id="reservationForm">
+                        <div class="form__group">
+                            <label for="customerName">Namn *</label>
+                            <input type="text" id="customerName" name="customerName" required>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="customerEmail">E-post *</label>
+                            <input type="email" id="customerEmail" name="customerEmail" required>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="customerPhone">Telefonnummer *</label>
+                            <input type="tel" id="customerPhone" name="customerPhone" required>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="form__group">
+                                <label for="reservationDate">Datum *</label>
+                                <input type="date" id="reservationDate" name="reservationDate" required>
+                            </div>
+
+                            <div class="form__group">
+                                <label for="reservationTime">Tid *</label>
+                                <select id="reservationTime" name="reservationTime" required>
+                                    <option value="">Välj tid</option>
+                                    <!-- Fylls dynamiskt -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="partySize">Antal personer *</label>
+                            <select id="partySize" name="partySize" required>
+                                <option value="">Välj antal</option>
+                                <option value="1">1 person</option>
+                                <option value="2">2 personer</option>
+                                <option value="3">3 personer</option>
+                                <option value="4">4 personer</option>
+                                <option value="5">5 personer</option>
+                                <option value="6">6 personer</option>
+                                <option value="7">7 personer</option>
+                                <option value="8">8 personer</option>
+                                <option value="9">9+ personer (ring oss)</option>
+                            </select>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="specialRequests">Särskilda önskemål</label>
+                            <textarea id="specialRequests" name="specialRequests" rows="3"
+                                placeholder="Allergier, födelsedagsdukning, etc."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn--primary btn--full">Skicka bokning</button>
+
+                        <div id="reservationMessage" class="form__message" style="display: none;"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kontakt Section -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Kontakt</h2>
+                    <p class="section__subtitle">Hitta till oss eller hör av dig</p>
+                </div>
+
+                <div class="contact__content">
+                    <div class="contact__info">
+                        <div class="contact__item">
+                            <div class="contact__icon">•</div>
+                            <div>
+                                <h3>Adress</h3>
+                                <p>Storgatan 15<br>111 51 Stockholm</p>
+                            </div>
+                        </div>
+
+                        <div class="contact__item">
+                            <div class="contact__icon">•</div>
+                            <div>
+                                <h3>Telefon</h3>
+                                <p><a href="tel:+46812345678">08-123 456 78</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact__item">
+                            <div class="contact__icon">•</div>
+                            <div>
+                                <h3>E-post</h3>
+                                <p><a href="mailto:info@bellavista.se">info@bellavista.se</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact__item">
+                            <div class="contact__icon">•</div>
+                            <div>
+                                <h3>Kollektivtrafik</h3>
+                                <p>T-bana: Östermalmstorg (röda linjen)<br>
+                                    Buss: 2, 55, 76 till Stureplan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact__map">
+                        <img src="images/image3.png" alt="Illustration of a man on the phone." loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h3>Bella Vista Ristorante</h3>
+                    <p>Autentisk italiensk mat i hjärtat av Stockholm sedan 1985.</p>
+                    <div class="footer__social">
+                        <a href="#" aria-label="Facebook">FB</a>
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="TripAdvisor">TA</a>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Snabblänkar</h4>
+                    <ul>
+                        <li><a href="#menu">Meny</a></li>
+                        <li><a href="#reservation">Boka bord</a></li>
+                        <li><a href="#about">Om oss</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Kontakt</h4>
+                    <p>Storgatan 15, 111 51 Stockholm</p>
+                    <p>Tel: 08-123 456 78</p>
+                    <p>E-post: info@bellavista.se</p>
+                </div>
+
+                <div class="footer__section">
+                    <h4>Öppettider</h4>
+                    <p>Mån-Tor: 17:00-23:00</p>
+                    <p>Fre-Lör: 17:00-24:00</p>
+                    <p>Sön: 16:00-22:00</p>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <p>&copy; 2025 Bella Vista Ristorante.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to top knapp -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scrolla till toppen">
+        ↑
+    </button>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 
 </html>
