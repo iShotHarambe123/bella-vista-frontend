@@ -8,6 +8,7 @@ import '../css/main.css';
 // Importera moduler
 import { Navigation } from './modules/navigation.js';
 import { LoadingManager } from './modules/loading.js';
+import { MenuLoader } from './modules/menu.js';
 
 class BellaVistaApp {
     constructor() {
@@ -22,6 +23,7 @@ class BellaVistaApp {
             LoadingManager.show();
             this.setupComponents();
             this.setupEventListeners();
+            await this.loadData();
             LoadingManager.hide();
             console.log('App initierad');
         } catch (error) {
@@ -32,6 +34,15 @@ class BellaVistaApp {
 
     setupComponents() {
         this.navigation = new Navigation();
+        this.menuLoader = new MenuLoader(this.apiBaseUrl);
+    }
+
+    async loadData() {
+        try {
+            await this.menuLoader.loadMenu();
+        } catch (error) {
+            console.error('Fel vid laddning av data:', error);
+        }
     }
 
     setupEventListeners() {
