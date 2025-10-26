@@ -116,16 +116,16 @@ class AdminApp {
     loadSectionData(sectionName) {
         switch (sectionName) {
             case 'dashboard':
-                this.loadDashboard();
+                if (window.dashboardManager) window.dashboardManager.loadDashboard();
                 break;
             case 'menu':
-                console.log('Laddar meny...');
+                if (window.menuManager) window.menuManager.loadMenuItems();
                 break;
             case 'categories':
-                console.log('Laddar kategorier...');
+                if (window.categoryManager) window.categoryManager.loadCategories();
                 break;
             case 'reservations':
-                console.log('Laddar bokningar...');
+                if (window.reservationManager) window.reservationManager.loadReservations();
                 break;
         }
     }
@@ -189,4 +189,8 @@ function confirmAction(message, callback) {
 // Starta app när DOM är laddad
 document.addEventListener('DOMContentLoaded', () => {
     window.adminApp = new AdminApp();
+    window.dashboardManager = new DashboardManager();
+    window.menuManager = new MenuManager();
+    window.categoryManager = new CategoryManager();
+    window.reservationManager = new ReservationManager();
 });
