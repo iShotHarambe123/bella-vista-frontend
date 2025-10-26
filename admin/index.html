@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Vista - Administration</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Inloggningsformulär -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <h1>Bella Vista</h1>
+                    <span>Admin</span>
+                </div>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" required placeholder=" ">
+                    <label for="username">Användarnamn</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required placeholder=" ">
+                    <label for="password">Lösenord</label>
+                </div>
+
+                <button type="submit" class="btn-login">Logga in</button>
+
+                <div id="loginError" class="error-message" style="display: none;"></div>
+            </form>
+
+            <div class="login-hint">
+                <small>Standard: admin / admin123</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Huvudapplikation -->
+    <div id="adminApp" class="admin-app" style="display: none;">
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle"></button>
+
+        <!-- Navigering -->
+        <nav class="admin-nav" id="adminNav">
+            <div class="nav-brand">
+                <h2>Bella Vista Admin</h2>
+            </div>
+
+            <div class="nav-menu">
+                <button class="nav-item active" data-section="dashboard">
+                    <span>📊</span> Dashboard
+                </button>
+                <button class="nav-item" data-section="menu">
+                    <span>🍝</span> Meny
+                </button>
+                <button class="nav-item" data-section="categories">
+                    <span>📂</span> Kategorier
+                </button>
+                <button class="nav-item" data-section="reservations">
+                    <span>📅</span> Bokningar
+                </button>
+            </div>
+
+            <div class="nav-user">
+                <span id="userInfo"></span>
+                <button id="logoutBtn" class="btn btn-secondary">Logga ut</button>
+            </div>
+        </nav>
+
+        <!-- Huvudinnehåll -->
+        <main class="admin-main">
+            <!-- Dashboard -->
+            <section id="dashboardSection" class="admin-section active">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                    <p>Översikt över restaurangens status</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3 id="totalReservations">-</h3>
+                            <p>Totala bokningar</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-content">
+                            <h3 id="pendingReservations">-</h3>
+                            <p>Väntande bokningar</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <h3 id="confirmedReservations">-</h3>
+                            <p>Bekräftade bokningar</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <h3 id="todayReservations">-</h3>
+                            <p>Idag</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="recent-reservations">
+                        <h3>Senaste bokningar</h3>
+                        <div id="recentReservationsList" class="reservations-list">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Meny -->
+            <section id="menuSection" class="admin-section">
+                <div class="section-header">
+                    <h2>Menyhantering</h2>
+                    <button id="addMenuItemBtn" class="btn btn-primary">Lägg till rätt</button>
+                </div>
+
+                <div class="menu-filters">
+                    <select id="categoryFilter">
+                        <option value="">Alla kategorier</option>
+                    </select>
+                    <input type="text" id="menuSearch" placeholder="Sök rätter...">
+                </div>
+
+                <div id="menuItemsList" class="items-list">
+                </div>
+            </section>
+
+            <!-- Kategorier -->
+            <section id="categoriesSection" class="admin-section">
+                <div class="section-header">
+                    <h2>Kategorier</h2>
+                    <button id="addCategoryBtn" class="btn btn-primary">Lägg till kategori</button>
+                </div>
+
+                <div id="categoriesList" class="items-list">
+                    <!-- Fylls dynamiskt -->
+                </div>
+            </section>
+
+            <!-- Bokningar -->
+            <section id="reservationsSection" class="admin-section">
+                <div class="section-header">
+                    <h2>Bokningar</h2>
+                </div>
+
+                <div class="reservations-filters">
+                    <select id="statusFilter">
+                        <option value="">Alla statusar</option>
+                        <option value="pending">Väntande</option>
+                        <option value="confirmed">Bekräftade</option>
+                        <option value="cancelled">Avbokade</option>
+                        <option value="completed">Genomförda</option>
+                    </select>
+                    <input type="date" id="dateFilter">
+                </div>
+
+                <div id="reservationsList" class="reservations-list">
+                    <!-- Fylls dynamiskt -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notifikationer -->
+    <div id="notifications" class="notifications"></div>
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
