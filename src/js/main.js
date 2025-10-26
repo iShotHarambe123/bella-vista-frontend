@@ -9,6 +9,7 @@ import '../css/main.css';
 import { Navigation } from './modules/navigation.js';
 import { LoadingManager } from './modules/loading.js';
 import { MenuLoader } from './modules/menu.js';
+import { ReservationForm } from './modules/reservation.js';
 
 class BellaVistaApp {
     constructor() {
@@ -35,6 +36,7 @@ class BellaVistaApp {
     setupComponents() {
         this.navigation = new Navigation();
         this.menuLoader = new MenuLoader(this.apiBaseUrl);
+        this.reservationForm = new ReservationForm(this.apiBaseUrl);
     }
 
     async loadData() {
