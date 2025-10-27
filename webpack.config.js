@@ -60,6 +60,11 @@ module.exports = (env, argv) => {
                         from: 'src/images',
                         to: 'images',
                         noErrorOnMissing: true
+                    },
+                    {
+                        from: 'admin',
+                        to: 'admin',
+                        noErrorOnMissing: true
                     }
                 ]
             })
