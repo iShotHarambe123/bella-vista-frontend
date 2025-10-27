@@ -6,7 +6,7 @@ class ApiClient {
     constructor() {
         this.baseURL = window.location.hostname === 'localhost'
             ? 'http://localhost:3000/api'
-            : '/api';
+            : 'https://bella-vista-backend.onrender.com/api';
         this.token = localStorage.getItem('authToken');
     }
 
