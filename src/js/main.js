@@ -14,7 +14,7 @@ import { ReservationForm } from './modules/reservation.js';
 class BellaVistaApp {
     constructor() {
         this.apiBaseUrl = process.env.NODE_ENV === 'production'
-            ? '/api'
+            ? 'https://bella-vista-backend.onrender.com/api'
             : 'http://localhost:3000/api';
         this.init();
     }

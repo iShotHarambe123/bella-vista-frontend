@@ -4,6 +4,17 @@
  */
 
 /* CSS Modules - importeras i rätt ordning */
-@import url('variables.css');
-@import url('base.css');
-@import url('utilities.css');
+@import './variables.css';
+/* CSS variabler först */
+@import './base.css';
+/* Grundläggande reset och typografi */
+@import './utilities.css';
+/* Hjälpklasser */
+@import './components.css';
+/* UI-komponenter (knappar, formulär, etc.) */
+@import './layout.css';
+/* Layout (header, navigation, footer) */
+@import './sections.css';
+/* Sektioner (hero, about, menu, etc.) */
+@import './responsive.css';
+/* Responsiva stilar */

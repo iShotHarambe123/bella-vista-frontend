@@ -1,0 +1,322 @@
+/**
+ * Komponenter för Bella Vista
+ * Knappar, formulär, kort och andra UI-element
+ */
+
+/* Knappar */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3) var(--spacing-6);
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn--primary {
+    background: var(--sage-green);
+    color: var(--white);
+    border: 2px solid var(--sage-green);
+}
+
+.btn--primary:hover:not(:disabled) {
+    background: var(--sage-dark);
+    border-color: var(--sage-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(140, 179, 105, 0.3);
+}
+
+.btn--primary:active {
+    transform: translateY(0);
+}
+
+.btn--secondary {
+    background: transparent;
+    color: var(--teal);
+    border: 2px solid var(--teal);
+}
+
+.btn--secondary:hover:not(:disabled) {
+    background: var(--teal);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.btn--full {
+    width: 100%;
+}
+
+.btn--large {
+    padding: var(--spacing-4) var(--spacing-8);
+    font-size: var(--font-size-lg);
+}
+
+.btn--small {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size-sm);
+}
+
+/* Formulär */
+.form__group {
+    margin-bottom: var(--spacing-5);
+}
+
+.form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4);
+}
+
+.form__group label {
+    display: block;
+    margin-bottom: var(--spacing-2);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+}
+
+.reservation .form__group label {
+    color: var(--white);
+}
+
+.form__group input,
+.form__group textarea,
+.form__group select {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 2px solid var(--gray-300);
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition-base);
+}
+
+.form__group input:focus,
+.form__group textarea:focus,
+.form__group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(140, 179, 105, 0.1);
+}
+
+.form__group input::placeholder,
+.form__group textarea::placeholder {
+    color: var(--black);
+}
+
+.form__group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form__message {
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--border-radius-md);
+    margin-top: var(--spacing-4);
+    font-size: var(--font-size-sm);
+}
+
+.form__message--success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.form__message--error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+}
+
+.form__message--info {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #3b82f6;
+}
+
+/* Kort */
+.card {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-base);
+    overflow: hidden;
+    transition: box-shadow var(--transition-base);
+    padding: var(--spacing-6);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+/* Laddningsindikatorer */
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: var(--spacing-8);
+    color: var(--black);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(140, 179, 105, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: var(--spacing-4);
+}
+
+.element-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: var(--spacing-6);
+    background: rgba(255, 255, 255, 0.9);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.element-loading .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(140, 179, 105, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: var(--spacing-3);
+}
+
+/* Notifikationer */
+.notification {
+    position: fixed;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    padding: var(--spacing-4) var(--spacing-6);
+    border-left: 4px solid var(--primary-color);
+    max-width: 400px;
+    z-index: var(--z-tooltip);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all var(--transition-base);
+}
+
+.notification--show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification--success {
+    border-left-color: #10b981;
+}
+
+.notification--error {
+    border-left-color: #ef4444;
+}
+
+.notification--warning {
+    border-left-color: #f59e0b;
+}
+
+/* Scroll-to-top knapp */
+.scroll-top {
+    position: fixed;
+    bottom: var(--spacing-6);
+    right: var(--spacing-6);
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xl);
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all var(--transition-base);
+    z-index: var(--z-fixed);
+}
+
+.scroll-top--visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.scroll-top:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Statusbadges */
+.badge {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-3);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+}
+
+.badge--primary {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.badge--secondary {
+    background: var(--light-gray);
+    color: var(--black);
+}
+
+.badge--success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge--warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge--error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Hover-effekter */
+.hover-lift {
+    transition: transform var(--transition-base);
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+}
+
+.hover-scale {
+    transition: transform var(--transition-base);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}

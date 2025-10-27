@@ -4,11 +4,15 @@
  */
 export class Navigation {
     constructor() {
+        console.log('Navigation constructor called');
+
         // Hämta DOM-element
         this.header = document.getElementById('header');
         this.navToggle = document.getElementById('navToggle');
         this.navMenu = document.getElementById('navMenu');
         this.navLinks = document.querySelectorAll('.nav__link');
+
+
 
         // Håll koll på meny-status och scroll-position
         this.isMenuOpen = false;
@@ -66,8 +70,15 @@ export class Navigation {
         this.isMenuOpen = !this.isMenuOpen;
 
         // Växla CSS-klasser för animation
-        this.navToggle.classList.toggle('nav__toggle--active');
-        this.navMenu.classList.toggle('nav__menu--active');
+        if (this.isMenuOpen) {
+            this.navToggle.classList.add('nav__toggle--active');
+            this.navMenu.classList.add('nav__menu--active');
+        } else {
+            this.navToggle.classList.remove('nav__toggle--active');
+            this.navMenu.classList.remove('nav__menu--active');
+        }
+
+
 
         // Förhindra scrolling när meny är öppen
         document.body.style.overflow = this.isMenuOpen ? 'hidden' : '';
