@@ -105,8 +105,6 @@
     max-width: 100%;
     height: auto;
     border-radius: var(--border-radius-xl);
-    box-shadow: var(--shadow-xl);
-    border: 3px solid var(--coral);
 }
 
 /* About Section */
@@ -151,7 +149,6 @@
     width: 100%;
     height: auto;
     border-radius: var(--border-radius-xl);
-    box-shadow: var(--shadow-lg);
 }
 
 .feature {
@@ -485,10 +482,4 @@
     min-height: 300px;
     object-fit: cover;
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-base);
-    transition: box-shadow var(--transition-base);
-}
-
-.contact__map img:hover {
-    box-shadow: var(--shadow-lg);
 }
