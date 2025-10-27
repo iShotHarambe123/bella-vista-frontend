@@ -1,28 +1,44 @@
-/**
- * Menu Manager för Bella Vista Admin
- * Hanterar CRUD-operationer för menyrätter
- */
 class MenuManager {
     constructor() {
         this.menuItems = [];
         this.categories = [];
+        this.filteredMenuItems = [];
         this.setupEventListeners();
     }
 
-    // Sätt upp event listeners
     setupEventListeners() {
         document.getElementById('addMenuItemBtn').addEventListener('click', () => {
             this.openMenuItemModal();
         });
+
+        document.getElementById('menuItemForm').addEventListener('submit', (e) => {
+            this.handleMenuItemSubmit(e);
+        });
+
+        // Filter event listeners
+        const categoryFilter = document.getElementById('categoryFilter');
+        const menuSearch = document.getElementById('menuSearch');
+
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', () => {
+                this.filterMenuItems();
+            });
+        }
+
+        if (menuSearch) {
+            menuSearch.addEventListener('input', () => {
+                this.filterMenuItems();
+            });
+        }
     }
 
-    // Ladda alla menyrätter
     async loadMenuItems() {
         try {
             console.log('Laddar menyrätter...');
             this.menuItems = await api.getAllMenuItems();
             console.log('Menyrätter laddade:', this.menuItems);
             await this.loadCategories();
+            this.filteredMenuItems = [...this.menuItems];
             this.updateMenuItemsDisplay();
         } catch (error) {
             console.error('Fel vid laddning av menyrätter:', error);
@@ -30,28 +46,53 @@ class MenuManager {
         }
     }
 
-    // Ladda kategorier
     async loadCategories() {
         try {
             console.log('Laddar kategorier...');
             this.categories = await api.getCategories();
             console.log('Kategorier laddade:', this.categories);
+            this.updateCategoryDropdowns();
         } catch (error) {
             console.error('Fel vid laddning av kategorier:', error);
             showNotification(`Kunde inte ladda kategorier: ${error.message}`, 'error');
         }
     }
 
-    // Uppdatera menyrätt-visning
+    updateCategoryDropdowns() {
+        // Uppdatera formulär-dropdown
+        const formSelect = document.getElementById('itemCategory');
+        if (formSelect) {
+            formSelect.innerHTML = '<option value="">Välj kategori</option>';
+            this.categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.id;
+                option.textContent = cat.name;
+                formSelect.appendChild(option);
+            });
+        }
+
+        // Uppdatera filter-dropdown
+        const filterSelect = document.getElementById('categoryFilter');
+        if (filterSelect) {
+            filterSelect.innerHTML = '<option value="">Alla kategorier</option>';
+            this.categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.id;
+                option.textContent = cat.name;
+                filterSelect.appendChild(option);
+            });
+        }
+    }
+
     updateMenuItemsDisplay() {
         const container = document.getElementById('menuItemsList');
 
-        if (this.menuItems.length === 0) {
+        if (this.filteredMenuItems.length === 0) {
             container.innerHTML = '<p>Inga menyrätter att visa</p>';
             return;
         }
 
-        container.innerHTML = this.menuItems.map(item => `
+        container.innerHTML = this.filteredMenuItems.map(item => `
             <div class="item-card">
                 <div class="item-info">
                     <h4>${item.name}</h4>
@@ -73,13 +114,53 @@ class MenuManager {
         `).join('');
     }
 
-    // Öppna menyrätt-modal
     openMenuItemModal(menuItem = null) {
-        console.log('Menyrätt-modal kommer att implementeras...');
-        showNotification('Menyhantering kommer snart!', 'info');
+        const form = document.getElementById('menuItemForm');
+
+        if (menuItem) {
+            document.getElementById('menuItemId').value = menuItem.id;
+            document.getElementById('itemName').value = menuItem.name;
+            document.getElementById('itemDescription').value = menuItem.description || '';
+            document.getElementById('itemPrice').value = menuItem.price;
+            document.getElementById('itemCategory').value = menuItem.category_id;
+        } else {
+            form.reset();
+            document.getElementById('menuItemId').value = '';
+        }
+
+        window.adminApp.openModal('menuItemModal');
     }
 
-    // Redigera menyrätt
+    async handleMenuItemSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const menuItemData = {
+            name: formData.get('itemName'),
+            description: formData.get('itemDescription'),
+            price: parseFloat(formData.get('itemPrice')),
+            category_id: parseInt(formData.get('itemCategory'))
+        };
+
+        const menuItemId = document.getElementById('menuItemId').value;
+
+        try {
+            if (menuItemId) {
+                await api.updateMenuItem(menuItemId, menuItemData);
+                showNotification('Menyrätt uppdaterad!', 'success');
+            } else {
+                await api.createMenuItem(menuItemData);
+                showNotification('Menyrätt skapad!', 'success');
+            }
+
+            window.adminApp.closeModal();
+            await this.loadMenuItems();
+        } catch (error) {
+            console.error('Fel vid sparande av menyrätt:', error);
+            showNotification(error.message || 'Kunde inte spara menyrätt', 'error');
+        }
+    }
+
     async editMenuItem(menuItemId) {
         const menuItem = this.menuItems.find(item => item.id === menuItemId);
         if (menuItem) {
@@ -87,7 +168,6 @@ class MenuManager {
         }
     }
 
-    // Ta bort menyrätt
     async deleteMenuItem(menuItemId) {
         const menuItem = this.menuItems.find(item => item.id === menuItemId);
         if (!menuItem) return;
@@ -104,5 +184,22 @@ class MenuManager {
                 showNotification('Kunde inte ta bort menyrätt', 'error');
             }
         }
+    }
+
+    filterMenuItems() {
+        const categoryFilter = document.getElementById('categoryFilter').value;
+        const searchTerm = document.getElementById('menuSearch').value.toLowerCase();
+
+        this.filteredMenuItems = this.menuItems.filter(item => {
+            const matchesCategory = !categoryFilter || item.category_id == categoryFilter;
+            const matchesSearch = !searchTerm ||
+                item.name.toLowerCase().includes(searchTerm) ||
+                (item.description && item.description.toLowerCase().includes(searchTerm)) ||
+                (item.category_name && item.category_name.toLowerCase().includes(searchTerm));
+
+            return matchesCategory && matchesSearch;
+        });
+
+        this.updateMenuItemsDisplay();
     }
 }

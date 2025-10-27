@@ -2,21 +2,31 @@
  * Category Manager för Bella Vista Admin
  * Hanterar CRUD-operationer för kategorier
  */
+
 class CategoryManager {
     constructor() {
         this.categories = [];
         this.setupEventListeners();
     }
 
-    // Sätt upp event listeners
+    /**
+     * Sätt upp event listeners
+     */
     setupEventListeners() {
         // Lägg till kategori-knapp
         document.getElementById('addCategoryBtn').addEventListener('click', () => {
             this.openCategoryModal();
         });
+
+        // Kategori-formulär
+        document.getElementById('categoryForm').addEventListener('submit', (e) => {
+            this.handleCategorySubmit(e);
+        });
     }
 
-    // Ladda alla kategorier
+    /**
+     * Ladda alla kategorier
+     */
     async loadCategories() {
         try {
             console.log('Laddar kategorier...');
@@ -29,7 +39,9 @@ class CategoryManager {
         }
     }
 
-    // Uppdatera kategori-visning
+    /**
+     * Uppdatera kategori-visning
+     */
     updateCategoriesDisplay() {
         const container = document.getElementById('categoriesList');
 
@@ -60,13 +72,73 @@ class CategoryManager {
         `).join('');
     }
 
-    // Öppna kategori-modal
+    /**
+     * Öppna kategori-modal för ny kategori
+     */
     openCategoryModal(category = null) {
-        console.log('Kategori-modal kommer att implementeras...');
-        showNotification('Kategori-hantering kommer snart!', 'info');
+        const modal = document.getElementById('categoryModal');
+        const title = document.getElementById('categoryModalTitle');
+        const form = document.getElementById('categoryForm');
+
+        if (category) {
+            // Redigera befintlig kategori
+            title.textContent = 'Redigera kategori';
+            document.getElementById('categoryId').value = category.id;
+            document.getElementById('categoryName').value = category.name;
+            document.getElementById('categoryDescription').value = category.description || '';
+            document.getElementById('categorySortOrder').value = category.sort_order;
+        } else {
+            // Ny kategori
+            title.textContent = 'Lägg till kategori';
+            form.reset();
+            document.getElementById('categoryId').value = '';
+        }
+
+        window.adminApp.openModal('categoryModal');
     }
 
-    // Redigera kategori
+    /**
+     * Hantera kategori-formulär submit
+     */
+    async handleCategorySubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const categoryData = {
+            name: formData.get('categoryName'),
+            description: formData.get('categoryDescription'),
+            sort_order: parseInt(formData.get('categorySortOrder')) || 0
+        };
+
+        const categoryId = document.getElementById('categoryId').value;
+
+        try {
+            if (categoryId) {
+                // Uppdatera befintlig kategori
+                await api.updateCategory(categoryId, categoryData);
+                showNotification('Kategori uppdaterad!', 'success');
+            } else {
+                // Skapa ny kategori
+                await api.createCategory(categoryData);
+                showNotification('Kategori skapad!', 'success');
+            }
+
+            window.adminApp.closeModal();
+            await this.loadCategories();
+
+            // Uppdatera meny-dropdown om den finns
+            if (window.menuManager) {
+                window.menuManager.loadCategoryOptions();
+            }
+        } catch (error) {
+            console.error('Fel vid sparande av kategori:', error);
+            showNotification(error.message || 'Kunde inte spara kategori', 'error');
+        }
+    }
+
+    /**
+     * Redigera kategori
+     */
     async editCategory(categoryId) {
         const category = this.categories.find(c => c.id === categoryId);
         if (category) {
@@ -76,18 +148,25 @@ class CategoryManager {
         }
     }
 
-    // Ta bort kategori
+    /**
+     * Ta bort kategori
+     */
     async deleteCategory(categoryId) {
         const category = this.categories.find(c => c.id === categoryId);
         if (!category) return;
 
-        const confirmed = confirm(`Är du säker på att du vill ta bort kategorin "${category.name}"?`);
+        const confirmed = confirm(`Är du säker på att du vill ta bort kategorin "${category.name}"?\n\nObs: Kategorin kan inte tas bort om den innehåller menyrätter.`);
 
         if (confirmed) {
             try {
                 await api.deleteCategory(categoryId);
                 showNotification('Kategori borttagen!', 'success');
                 await this.loadCategories();
+
+                // Uppdatera meny-dropdown om den finns
+                if (window.menuManager) {
+                    window.menuManager.loadCategoryOptions();
+                }
             } catch (error) {
                 console.error('Fel vid borttagning av kategori:', error);
                 showNotification(error.message || 'Kunde inte ta bort kategori', 'error');
@@ -95,7 +174,19 @@ class CategoryManager {
         }
     }
 
-    // Escape HTML för säkerhet
+    /**
+     * Hämta kategorier för dropdown
+     */
+    getCategoriesForDropdown() {
+        return this.categories.map(category => ({
+            value: category.id,
+            text: category.name
+        }));
+    }
+
+    /**
+     * Escape HTML för säkerhet
+     */
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;

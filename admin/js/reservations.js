@@ -1,7 +1,3 @@
-/**
- * Reservation Manager för Bella Vista Admin
- * Hanterar bokningar och statusuppdateringar
- */
 class ReservationManager {
     constructor() {
         this.reservations = [];
@@ -9,7 +5,6 @@ class ReservationManager {
         this.setupEventListeners();
     }
 
-    // Sätt upp event listeners
     setupEventListeners() {
         // Filter event listeners
         const statusFilter = document.getElementById('statusFilter');
@@ -28,7 +23,6 @@ class ReservationManager {
         }
     }
 
-    // Ladda alla bokningar
     async loadReservations() {
         try {
             console.log('Laddar bokningar...');
@@ -42,7 +36,6 @@ class ReservationManager {
         }
     }
 
-    // Filtrera bokningar
     filterReservations() {
         const statusFilter = document.getElementById('statusFilter').value;
         const dateFilter = document.getElementById('dateFilter').value;
@@ -56,7 +49,6 @@ class ReservationManager {
         this.updateReservationsDisplay();
     }
 
-    // Uppdatera boknings-visning
     updateReservationsDisplay() {
         const container = document.getElementById('reservationsList');
 
@@ -90,7 +82,6 @@ class ReservationManager {
         `).join('');
     }
 
-    // Hämta statustext på svenska
     getStatusText(status) {
         const statusTexts = {
             'pending': 'Väntande',
@@ -101,7 +92,6 @@ class ReservationManager {
         return statusTexts[status] || status;
     }
 
-    // Hämta statusspecifika åtgärder
     getStatusActions(reservation) {
         const actions = [];
 
@@ -148,7 +138,6 @@ class ReservationManager {
         return actions.join('');
     }
 
-    // Uppdatera bokningsstatus
     async updateStatus(reservationId, newStatus) {
         try {
             await api.updateReservationStatus(reservationId, newStatus);
@@ -172,7 +161,6 @@ class ReservationManager {
         }
     }
 
-    // Ta bort bokning
     async deleteReservation(reservationId) {
         const reservation = this.reservations.find(r => r.id === reservationId);
         if (!reservation) return;

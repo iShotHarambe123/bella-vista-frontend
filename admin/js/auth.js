@@ -1,14 +1,9 @@
-/**
- * Auth Manager för Bella Vista Admin
- * Hanterar inloggning och autentisering
- */
 class AuthManager {
     constructor() {
         this.currentUser = null;
         this.init();
     }
 
-    // Initiera auth manager
     async init() {
         const token = localStorage.getItem('authToken');
         if (token) {
@@ -19,7 +14,6 @@ class AuthManager {
         }
     }
 
-    // Logga in användare
     async login(credentials) {
         try {
             const response = await api.login(credentials);
@@ -33,7 +27,6 @@ class AuthManager {
         }
     }
 
-    // Logga ut användare
     logout() {
         api.setToken(null);
         this.currentUser = null;
@@ -41,28 +34,22 @@ class AuthManager {
         showNotification('Du har loggats ut', 'info');
     }
 
-    // Visa inloggningsformulär
     showLogin() {
         document.getElementById('loginContainer').style.display = 'flex';
         document.getElementById('adminApp').style.display = 'none';
     }
 
-    // Visa admin-appen
     showAdminApp() {
         document.getElementById('loginContainer').style.display = 'none';
         document.getElementById('adminApp').style.display = 'grid';
-
-        // Visa användarinfo
-        const userInfo = document.getElementById('userInfo');
-        if (userInfo && this.currentUser) {
-            userInfo.textContent = `Inloggad som: ${this.currentUser.username}`;
+        if (window.dashboardManager) {
+            window.dashboardManager.loadDashboard();
         }
     }
 }
 
 const authManager = new AuthManager();
 
-// Event listeners för inloggning
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const logoutBtn = document.getElementById('logoutBtn');

@@ -1,7 +1,3 @@
-/**
- * Huvudapplikation för Bella Vista Admin
- * Hanterar navigation och grundläggande funktionalitet
- */
 class AdminApp {
     constructor() {
         this.currentSection = 'dashboard';
@@ -9,13 +5,12 @@ class AdminApp {
         this.init();
     }
 
-    // Initiera appen
     init() {
         this.setupNavigation();
+        this.setupModals();
         this.setupMobileMenu();
     }
 
-    // Sätt upp navigation
     setupNavigation() {
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
@@ -27,7 +22,6 @@ class AdminApp {
         });
     }
 
-    // Sätt upp mobilmeny
     setupMobileMenu() {
         const mobileToggle = document.getElementById('mobileMenuToggle');
         const adminNav = document.getElementById('adminNav');
@@ -37,7 +31,6 @@ class AdminApp {
                 this.toggleMobileMenu();
             });
 
-            // Stäng meny när man klickar utanför
             document.addEventListener('click', (e) => {
                 if (this.isMobileMenuOpen &&
                     !adminNav.contains(e.target) &&
@@ -46,7 +39,6 @@ class AdminApp {
                 }
             });
 
-            // Stäng meny med Escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && this.isMobileMenuOpen) {
                     this.closeMobileMenu();
@@ -55,7 +47,6 @@ class AdminApp {
         }
     }
 
-    // Växla mobilmeny
     toggleMobileMenu() {
         const mobileToggle = document.getElementById('mobileMenuToggle');
         const adminNav = document.getElementById('adminNav');
@@ -70,11 +61,9 @@ class AdminApp {
             adminNav.classList.toggle('open', this.isMobileMenuOpen);
         }
 
-        // Förhindra scrollning när meny är öppen
         document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : '';
     }
 
-    // Stäng mobilmeny
     closeMobileMenu() {
         if (this.isMobileMenuOpen) {
             this.isMobileMenuOpen = false;
@@ -94,7 +83,6 @@ class AdminApp {
         }
     }
 
-    // Navigera till sektion
     navigateToSection(sectionName) {
         // Uppdatera navigation
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -112,7 +100,6 @@ class AdminApp {
         this.loadSectionData(sectionName);
     }
 
-    // Ladda data för sektion
     loadSectionData(sectionName) {
         switch (sectionName) {
             case 'dashboard':
@@ -130,23 +117,42 @@ class AdminApp {
         }
     }
 
-    // Ladda dashboard
-    async loadDashboard() {
-        try {
-            // Sätt placeholder-värden
-            document.getElementById('totalReservations').textContent = '-';
-            document.getElementById('pendingReservations').textContent = '-';
-            document.getElementById('confirmedReservations').textContent = '-';
-            document.getElementById('todayReservations').textContent = '-';
+    setupModals() {
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeButtons = document.querySelectorAll('.modal-close');
 
-            // Visa meddelande att dashboard laddas
-            const recentList = document.getElementById('recentReservationsList');
-            if (recentList) {
-                recentList.innerHTML = '<p>Dashboard kommer att implementeras i nästa commit...</p>';
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                this.closeModal();
             }
-        } catch (error) {
-            console.error('Fel vid laddning av dashboard:', error);
-        }
+        });
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                this.closeModal();
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeModal();
+            }
+        });
+    }
+
+    openModal(modalId) {
+        document.getElementById('modalOverlay').style.display = 'flex';
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.display = 'none';
+        });
+        document.getElementById(modalId).style.display = 'block';
+    }
+
+    closeModal() {
+        document.getElementById('modalOverlay').style.display = 'none';
+        document.querySelectorAll('.modal form').forEach(form => {
+            form.reset();
+        });
     }
 }
 
@@ -155,16 +161,8 @@ function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.textContent = message;
+    document.getElementById('notifications').appendChild(notification);
 
-    const container = document.getElementById('notifications');
-    container.appendChild(notification);
-
-    // Visa notifikation
-    setTimeout(() => {
-        notification.classList.add('notification--show');
-    }, 100);
-
-    // Ta bort notifikation efter 3 sekunder
     setTimeout(() => {
         if (notification.parentNode) {
             notification.parentNode.removeChild(notification);
@@ -186,7 +184,7 @@ function confirmAction(message, callback) {
     }
 }
 
-// Starta app när DOM är laddad
+// Starta app
 document.addEventListener('DOMContentLoaded', () => {
     window.adminApp = new AdminApp();
     window.dashboardManager = new DashboardManager();

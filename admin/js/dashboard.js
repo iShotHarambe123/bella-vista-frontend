@@ -1,14 +1,9 @@
-/**
- * Dashboard Manager för Bella Vista Admin
- * Hanterar översikt och statistik
- */
 class DashboardManager {
     constructor() {
         this.recentReservations = [];
         this.allReservations = [];
     }
 
-    // Ladda dashboard-data
     async loadDashboard() {
         try {
             await this.loadReservations();
@@ -20,7 +15,6 @@ class DashboardManager {
         }
     }
 
-    // Ladda alla bokningar
     async loadReservations() {
         try {
             this.allReservations = await api.getReservations();
@@ -32,7 +26,6 @@ class DashboardManager {
         }
     }
 
-    // Uppdatera statistik
     updateStats() {
         const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
 
@@ -50,7 +43,6 @@ class DashboardManager {
         document.getElementById('todayReservations').textContent = stats.today;
     }
 
-    // Uppdatera senaste bokningar
     updateRecentReservationsDisplay() {
         const container = document.getElementById('recentReservationsList');
 
@@ -68,7 +60,7 @@ class DashboardManager {
                         <span>${formatDate(reservation.reservation_date)}</span>
                         <span>${reservation.reservation_time}</span>
                         <span>${reservation.party_size} personer</span>
-                        <span class="status-badge status-${reservation.status}">${reservation.status}</span>
+                        <span class="status-${reservation.status}">${reservation.status}</span>
                     </div>
                 </div>
             </div>

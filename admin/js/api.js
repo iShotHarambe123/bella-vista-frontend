@@ -1,7 +1,3 @@
-/**
- * API Client för Bella Vista Admin
- * Hanterar all kommunikation med backend
- */
 class ApiClient {
     constructor() {
         this.baseURL = window.location.hostname === 'localhost'
@@ -10,7 +6,6 @@ class ApiClient {
         this.token = localStorage.getItem('authToken');
     }
 
-    // Sätt JWT token
     setToken(token) {
         this.token = token;
         if (token) {
@@ -20,7 +15,6 @@ class ApiClient {
         }
     }
 
-    // Hämta headers för requests
     getHeaders() {
         const headers = { 'Content-Type': 'application/json' };
         if (this.token) {
@@ -29,7 +23,6 @@ class ApiClient {
         return headers;
     }
 
-    // Grundläggande request metod
     async request(endpoint, options = {}) {
         const url = `${this.baseURL}${endpoint}`;
         const config = {
@@ -50,7 +43,7 @@ class ApiClient {
         }
     }
 
-    // Auth endpoints
+    // Auth
     async login(credentials) {
         return this.request('/auth/login', {
             method: 'POST',
@@ -58,9 +51,13 @@ class ApiClient {
         });
     }
 
-    // Categories endpoints
+    // kategorier
     async getCategories() {
         return this.request('/categories');
+    }
+
+    async getCategory(id) {
+        return this.request(`/categories/${id}`);
     }
 
     async createCategory(categoryData) {
@@ -81,7 +78,7 @@ class ApiClient {
         return this.request(`/categories/${id}`, { method: 'DELETE' });
     }
 
-    // Menu endpoints
+    // Meny
     async getAllMenuItems() {
         return this.request('/menu/all');
     }
@@ -104,7 +101,7 @@ class ApiClient {
         return this.request(`/menu/${id}`, { method: 'DELETE' });
     }
 
-    // Reservations endpoints
+    // Reservationer
     async getReservations() {
         return this.request('/reservations');
     }
